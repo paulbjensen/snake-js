@@ -1,0 +1,10 @@
+{
+	"name":"snake-app",
+	"version":"1.0.0",
+	"main":"index.html",
+	"window": {
+		"width": 840,
+		"height": 470,
+		"toolbar": false
+	}
+}
