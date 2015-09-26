@@ -1,6 +1,41 @@
 'use strict';
 
+var gui = require('nw.gui');
+var currentState;
+
 var canvas, ctx, gridSize, currentPosition, snakeBody, snakeLength, direction, score, suggestedPoint, allowPressKeys, interval, choice;
+
+
+
+function togglePauseState () {
+	if (currentState) {
+		if (currentState === 'play') {
+			pause();
+      currentState = 'pause';
+		} else {
+			play();
+      currentState = 'play';
+		}
+	} else {
+		currentState = 'play';
+		pause();
+	}
+}
+
+var pauseKeyOptions = {
+  key:'Ctrl+P', 
+  active: togglePauseState,
+  failed: function () {
+    console.log('An error occurred');
+  }
+};
+
+var pauseShortcut = new gui.Shortcut(pauseKeyOptions);
+gui.App.registerGlobalHotKey(pauseShortcut);
+process.on('exit', function () {
+  gui.App.unregisterGlobalHotKey(pauseShortcut);
+});
+
 
 function updateScore () {
   score = (snakeLength - 3)*10;
